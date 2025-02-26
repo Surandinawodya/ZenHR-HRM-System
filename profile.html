@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background-color:#333;
+            padding: 10px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        
+        }
+        .nav-bar .profile {
+            display: flex;
+            align-items: center;
+        }
+        .nav-bar .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .nav-bar span {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color:#2478b8;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 10.5%;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px; /* Avoid overlap with nav-bar */
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(0);
+            opacity: 96%;
+            border-radius: 25px;
+            
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: bold;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #0056b3;
+        }
+        .sidebar .logout a:hover {
+            background-color: #FF4B4B;
+        }
+        .sidebar.mobile-hidden {
+            transform: translateX(-100%);
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: 1000px;         
+        }
+        .ab a:hover {
+            background-color: #dd2e3f;
+        }
+
+
+        /* Content Area */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex: 1;
+        }
+        .dashboard-cards {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        .card {
+            background: #e0dcdc;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .card h3 {
+            margin-top: 0;
+        }
+        .card p {
+            margin: 10px 0;
+        }
+        .card button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #296695;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card button:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            padding: 20px;
+            margin-left: 170px;
+            margin-top: 40px;
+        }
+        .profile-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #d1cccc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .profile-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .profile-card h2 {
+            margin: 10px 0;
+        }
+        .profile-card p {
+            margin: 5px 0;
+            color: #363434;
+        }
+        .profile-card button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color:#395e7d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .profile-card button:hover {
+            background-color: #3a73b0;
+        }
+        .ab a:hover {
+            background-color: #e41a2e;
+           
+        }
+
+        /* Hamburger Menu for Mobile */
+        .menu-toggle {
+            display: none;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .sidebar {
+                width: 200px;
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+        .container {
+            
+            padding: 20px;
+            margin-left: 0px;
+            margin-top: 40px;
+        }
+        
+
+        @media (max-width: 480px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Additional Media Queries */
+        @media (max-width: 599px) {
+            .nav-bar span {
+                font-size: 1rem;
+            }
+        }
+        @media (min-width: 600px) and (max-width: 799px) {
+            .dashboard-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 800px) and (max-width: 1024px) {
+            .dashboard-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .container{
+                margin-left: 200px;
+            }
+        }
+        @media (min-width: 1440px) {
+            .dashboard-cards {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+         @media (max-width: 480px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+            .profile img {
+                margin-left: 230%;
+            }
+            .profile span{
+                margin-left:0%;
+            }
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <button class="menu-toggle">☰</button>
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <div class="profile">
+            <img src="profile1.png" alt="Admin Profile">
+            <span>Hii Sura!</span>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="dashbord.html">
+            <img src="dash.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+            Dashboard
+        </a>
+    
+        <a href="manageemp.html">
+            <img src="manage.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+         Manage Employees
+        </a>
+        <a href="viewreport.html">
+            <img src="report.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+      View Reports
+        </a>
+        
+       
+         <a href="profile.html">
+            <img src="pro.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+          Profile
+        </a>
+        
+        
+        <div class="ab">
+            <a href="#">
+                <img src="logout.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+     Logout
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="profile-card">
+            <img src="pro1.png" alt="Admin Profile Picture">
+            <h2>Surandi nawodya</h2>
+            <p>Email: surandi@gmail.com</p>
+            <p>Role: System Administrator</p>
+            <button>Edit Profile</button>
+        </div>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background-color: #333;
+            padding: 10px 20px;
+            color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        .nav-bar.profile1 {
+            display: flex;
+            align-items: center;
+        }
+        .nav-bar.profile1 img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 100%;
+        }
+        .nav-bar span {
+            font-size: 1.1rem;
+            font-weight: bold;
+        
+        }
+        .profile1 {
+            display: flex;
+            align-items: center;
+        }
+        .profile1 img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: 1100px;         
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #2478b8;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 10.5%;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px;
+            transform: translateX(0);
+            transition: transform 0.3s ease-in-out;
+            opacity: 96%;
+            border-radius: 25px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: bold;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #0056b3;
+        }
+        .sidebar .ab a:hover {
+            background-color: #dd2e3f;
+        }
+        .sidebar.mobile-hidden {
+            transform: translateX(-100%);
+        }
+   
+        /* Content Area */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex: 1;
+        }
+        .dashboard-cards {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        .card {
+            background: #e0dcdc;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .card h3 {
+            margin-top: 0;
+        }
+        .card p {
+            margin: 10px 0;
+        }
+        .card button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #296695;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card button:hover {
+            background-color: #0056b3;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex: 1;
+        }
+        .employee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #efe6e6;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .employee-table th, .employee-table td {
+            border: 1.5px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .employee-table tr:hover{
+            background-color: #c5d3de;
+
+        }
+        .employee-table th {
+            background-color: #395e7d;
+            color: white;
+        }
+        .manage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .manage-header h1 {
+            margin: 0;
+        }
+        .manage-header button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #395e7d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .manage-header button:hover {
+            background-color: #3a73b0;
+            ;
+        }
+        .ab a:hover {
+            background-color: #e41a2e;
+        }
+        .but button{
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #fff;
+            border: none;
+            background-color: #395e7d;
+            cursor: pointer;
+        }
+        .but button:hover{
+            background-color: #3a73b0;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .menu-toggle {
+            display: none;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .sidebar {
+                width: 250px;
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .content {
+                margin-left: 0;
+                padding: 20px;
+
+            }
+            .dashboard-cards {
+                grid-template-columns: 3fr;
+            }
+        }
+       
+        
+
+        @media (max-width: 480px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+           
+        /* Default navigation bar width */
+        .nav-bar {
+            width: 130%;
+            height: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .employee-table {
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .employee-table th, .employee-table td {
+                font-size: 12px;
+                padding: 6px;
+            }
+        }
+
+        /* Responsive Table */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 20px;
+        }
+
+        /* Media Query for Tablets and Smaller Screens */
+        @media (max-width: 768px) {
+            .manage-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .manage-header h1 {
+                font-size: 1.3rem;
+                margin-bottom: 10px;
+            }
+            .manage-header button {
+                align-self: stretch;
+                text-align: center;
+                margin-left: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .manage-header h1 {
+                font-size: 1.1rem;
+            }
+            .manage-header button {
+                padding: 9px 12px;
+                font-size: 0.9rem;
+                margin-left: 40%;
+            }
+        }
+        .but button {
+                padding: 4px 8px;
+                font-size: 0.6rem;
+               
+            }
+        .profile1 {
+            display: flex;
+            align-items: center;
+        }
+        .profile1 img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: 220px;         
+        }
+    }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle">☰</button>
+    <div class="nav-bar">
+        <div class="profile1">
+            <img src="profile1.png" alt="Admin Profile">
+            <span>Hii sura!</span>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <a href="dashbord.html">
+            <img src="dash.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+            Dashboard
+        </a>
+        <a href="manageemp.html">
+            <img src="manage.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+            Manage Employees
+        </a>
+        <a href="viewreport.html">
+            <img src="report.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+            View Reports
+        </a>
+        <a href="profile.html">
+            <img src="pro.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+            Profile
+        </a>
+       
+        <div class="ab">
+            <a href="#">
+                <img src="logout.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+                Logout
+            </a>
+        </div>
+    </div>
+<br><br>
+    <div class="content"><br><br>
+        <div class="manage-header">
+            <h1>Manage Employees</h1>
+            <button>Add New Employee</button>
+        </div>
+
+        <div class="table-container">
+            <table class="employee-table">
+                
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>John Doe</td>
+                        <td>Engineering</td>
+                        <td>Software Developer</td>
+                        <td>
+                            <div class="but">
+                            <button>Edit</button> <button>Delete</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Jane Smith</td>
+                        <td>Marketing</td>
+                        <td>Marketing Manager</td>
+                        <td><div class="but">
+                            <button>Edit</button> <button>Delete</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>103</td>
+                        <td>Samuel Brown</td>
+                        <td>HR</td>
+                        <td>HR Specialist</td>
+                        <td><div class="but">
+                            <button>Edit</button> <button>Delete</button></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div><br>
+        <a href="newempProfile.html">
+        <button>Go to employee</button>
+        </a>
+    </div>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

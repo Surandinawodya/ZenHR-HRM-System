@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background-color: #333;
+            padding: 10px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-bar .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .nav-bar span {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #2478b8;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 10.5%;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(0);
+            opacity: 96%;
+            border-radius: 25px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: bold;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #0056b3;
+        }
+
+        .sidebar .logout a:hover {
+            background-color: #FF4B4B;
+        }
+
+        .sidebar.mobile-hidden {
+            transform: translateX(-100%);
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: 1000px;
+        }
+
+        .ab a:hover {
+            background-color: #e41a2e;
+        }
+
+        /* Employee Chart Section */
+        .charts-section {
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            background: #e0dcdc;
+        
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            width: 40%;
+            margin: 20px auto;
+        }
+
+
+        /* Content Area */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .card {
+            background: #e0dcdc;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.25s;
+        }
+        .card:hover{
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .card p {
+            margin: 10px 0;
+        }
+
+        .card button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #395e7d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background-color: #3a73b0;
+          
+        }
+
+        /* Hamburger Menu for Mobile */
+        .menu-toggle {
+            display: none;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* Responsive Design */
+        
+        @media (max-width: 480px) {
+            body{
+                font-size: 0.8em;
+                
+                
+            }
+           
+            .content {
+                
+                margin-right: 10px;
+                
+            }
+            .charts-section {
+                margin-top: 10px;
+            }
+
+            .chart-container {
+                width: 80%;
+            }
+
+            .profile img {
+                margin-left: 200%;
+            }
+
+            .profile span{
+                margin-left:0%;
+            }
+        }
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                width: 250px;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+            .profile img {
+                margin-left: 200%;
+            }
+
+            .profile span{
+                margin-left:0%;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <button class="menu-toggle">☰</button>
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <div class="profile">
+            <img src="profile1.png" alt="Admin Profile">
+            <span>Hi Sura!</span>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="dashbord.html">
+            <img src="dash.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+            Dashboard
+        </a>
+        <a href="manageemp.html">
+            <img src="manage.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+            Manage Employees
+        </a>
+        <a href="viewreport.html">
+            <img src="report.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+            View Reports
+        </a>
+        <a href="profile.html">
+            <img src="pro.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+            Profile
+        </a>
+        
+        <div class="ab">
+            <a href="index.html">
+                <img src="logout.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content">
+        <h1>Welcome Sura!</h1>
+
+        <div class="dashboard-cards">
+            <div class="card">
+                <h3>Manage Employees</h3>
+                <p>View and manage all employees in the system.</p>
+                <a href="manageemp.html"><button>Go to Employee Management</button></a>
+            </div>
+            <div class="card">
+                <h3>View Reports</h3>
+                <p>Generate and review detailed reports.</p><br>
+                <a href="viewreport.html"><button>Go to Reports</button></a>
+            </div>
+        </div>
+
+        <!-- Employee Charts Section -->
+         
+        <div class="charts-section">
+            <center><h3>Employee Statistics</h3></center>
+            <div class="chart-container">
+                <canvas id="employeeChart"></canvas>
+            </div>
+
+            <center><h3>Employee Availability</h3></center>
+            <div class="chart-container">
+                <canvas id="availabilityChart"></canvas>
+            </div>
+
+            <center><h3>Salary Statistics</h3></center>
+            <div class="chart-container">
+                <canvas id="salaryChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Employee Statistics Chart
+        const ctx = document.getElementById('employeeChart').getContext('2d');
+        const employeeChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Active Employees', 'Inactive Employees', 'Total Employees'],
+                datasets: [{
+                    label: 'Employee Statistics',
+                    data: [50, 30, 80],  // Example data
+                    backgroundColor: [' #0f81fa', '#072545', '#1c4877'],
+                    borderColor: [' #0f81fa', '#072545', '#1c4877'],
+                 
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,  // Make sure the chart resizes
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Employee Availability Chart
+        const availabilityCtx = document.getElementById('availabilityChart').getContext('2d');
+        const availabilityChart = new Chart(availabilityCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Available', 'On Leave', 'Busy'],
+                datasets: [{
+                    label: 'Employee Availability',
+                    data: [60, 20, 20],  // Example data (change as needed)
+                    backgroundColor: [' #0f81fa', '#072545', '#1c4877'],
+                    borderColor: [' #0f81fa', '#072545', '#1c4877'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        // Salary Statistics Chart
+        const salaryCtx = document.getElementById('salaryChart').getContext('2d');
+        const salaryChart = new Chart(salaryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Low Salary', 'Medium Salary', 'High Salary'],
+                datasets: [{
+                    label: 'Salary Statistics',
+                    data: [40, 35, 25],  // Example data (change as needed)
+                    backgroundColor: ['#0f81fa', ' #5f96d0', '#1c4877'],
+                    borderColor: [' #0f81fa', ' #5f96d0', '#1c4877'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+</body>
+</html>

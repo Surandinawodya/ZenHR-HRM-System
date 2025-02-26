@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports view</title>
+  <link rel="stylesheet" href="manager.css">
+</head>
+<body>
+  <header class="header">
+    <div>
+      <img src="icon111.png" alt="logo">
+    </div>
+    <div class="header-right">
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-list">
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="Contact.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </header>
+  <header class="header2">
+    <button class="menu-toggle">☰</button>
+    <h1>Reports view</h1>
+  </header>
+
+   <div class="overlay"></div>
+
+  <div class="sidebar">
+    <button class="close-btn">&times;</button>
+    <a href="manager.html">Dashboard</a>
+    <a href="managerprofile.html">Profile</a>
+    <a href="assigntask.html">Task</a>
+    <a href="report.html">Viewp Reports</a>
+    <a href="logout.html">Logout</a>
+  </div>
+  <main class="container2">
+    
+    <div class="table-section2">
+      <h3>Performance Reports</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Employee Name</th>
+            <th>Tasks Assigned</th>
+            <th>Tasks Completed</th>
+            <th>Completion Rate (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nethmi</td>
+            <td>50</td>
+            <td>45</td>
+            <td>90%</td>
+          </tr>
+          <tr>
+            <td>surandi </td>
+            <td>40</td>
+            <td>35</td>
+            <td>87.5%</td>
+          </tr>
+          <tr>
+            <td>rashu</td>
+            <td>30</td>
+            <td>28</td>
+            <td>93%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Attendance Reports Table -->
+    <div class="table-section2">
+      <h3>Attendance Reports</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Employee Name</th>
+            <th>Days Present</th>
+            <th>Days Absent</th>
+            <th>Attendance Rate (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nethmi</td>
+            <td>22</td>
+            <td>3</td>
+            <td>88%</td>
+          </tr>
+          <tr>
+            <td>Surandi</td>
+            <td>24</td>
+            <td>1</td>
+            <td>96%</td>
+          </tr>
+          <tr>
+            <td>rashu</td>
+            <td>23</td>
+            <td>2</td>
+            <td>92%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.overlay');
+  const closeBtn = document.querySelector('.close-btn');
+
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+  });
+
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+</script>
+</html>

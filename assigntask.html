@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management</title>
+  <link rel="stylesheet" href="manager.css">
+</head>
+<body>
+  <header class="header">
+    <button class="menu-toggle">☰</button>
+    <div>
+      <img src="icon111.png" alt="logo">
+    </div>
+    <div class="header-right">
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-list">
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="Contact.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </header>
+  <header class="header1">
+    <h1>Task Management</h1>
+  </header>
+
+  <div class="overlay"></div>
+
+  <div class="sidebar">
+    <button class="close-btn">&times;</button>
+    <a href="manager.html">Dashboard</a>
+    <a href="managerprofile.html">Profile</a>
+    <a href="assigntask.html">Task</a>
+    <a href="report.html">Viewp Reports</a>
+    <a href="logout.html">Logout</a>
+  </div>
+  <main class="container1">
+    <form class="task-form1">
+      <div class="form-group1">
+        <label for="employee">Employee Name</label>
+        <input type="text" id="employee-name" name="employee-name" required>
+         
+      </div>
+
+      <div class="form-group1">
+        <label for="task-title">Task Title</label>
+        <input type="text" id="task-title" name="task-title"  required>
+      </div>
+
+      <div class="form-group1">
+        <label for="task-desc">Task Description</label>
+        <textarea id="task-desc" name="task-desc" placeholder="Enter task details" rows="5" required></textarea>
+      </div>
+
+      <div class="form-group1">
+        <label for="deadline">Deadline</label>
+        <input type="date" id="deadline" name="deadline" required>
+      </div>
+
+      <button type="submit" class="action-btn1">Submit</button>
+    </form>
+  </main>
+</body>
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.overlay');
+  const closeBtn = document.querySelector('.close-btn');
+
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+  });
+
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+</script>
+</html>

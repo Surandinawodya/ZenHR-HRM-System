@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HRM System - Manager Panel</title>
+  <link rel="stylesheet" href="manager.css">
+   
+</head>
+<body>
+  <header class="header">
+    <button class="menu-toggle">☰</button>
+    <div>
+      <img src="icon111.png" alt="logo">
+    </div>
+    <div class="header-right">
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="ContactUs.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </header>
+  <header class="header3">
+    <h1>Welcome  Manager</h1>
+  </header>
+
+  <div class="overlay"></div>
+
+  <div class="sidebar">
+    <button class="close-btn">&times;</button>
+    <a href="manager.html">Dashboard</a>
+    <a href="managerprofile.html">Profile</a>
+    <a href="assigntask.html">Task</a>
+    <a href="report.html">Viewp Reports</a>
+    <a href="index.html">Logout</a>
+  </div>
+  <main class="container3">
+   
+    <div class="grid-container3">
+      <div class="card">
+        <h3>Employee Profiles</h3>
+        <p>View and access employee information.</p>
+        <a href="managerprofile.html"><button class="action-btn">View Profiles</button></a>
+      </div>
+      <div class="card">
+        <h3>Tasks Management</h3>
+        <p>Assign and track employee tasks.</p>
+        <a href="assigntask.html"><button class="action-btn">Manage Tasks</button></a>
+      </div>
+      <div class="card">
+        <h3>Reports</h3>
+        <p>Analyze performance and attendance reports.</p>
+        <a href="report.html"><button class="action-btn">View Reports</button></a>
+      </div>
+    </div>
+  </main>
+  
+</body>
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.overlay');
+  const closeBtn = document.querySelector('.close-btn');
+
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+  });
+
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+</script>
+</html>
+

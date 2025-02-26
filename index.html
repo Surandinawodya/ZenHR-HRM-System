@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login-Signup</title>
+
+    <script>
+        // Function to show the signup card
+        function showSignup() {
+            document.getElementById('login-card').classList.remove('active');
+            document.getElementById('signup-card').classList.add('active');
+            document.querySelector('.container').classList.add('sign-up-mode');  // Enable sign-up mode
+        }
+
+        // Function to show the login card
+        function showLogin() {
+            document.getElementById('signup-card').classList.remove('active');
+            document.getElementById('login-card').classList.add('active');
+            document.querySelector('.container').classList.remove('sign-up-mode');  // Disable sign-up mode
+        }
+
+        // Handle login submission
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const role = document.getElementById('login-role').value;
+
+            // Hardcoded credentials for demonstration
+            const credentials = {
+                Admin: { email: "surandi@gmail.com", password: "a1" },
+                Manager: { email: "rashu@gmail.com", password: "m1" },
+                Employee: { email: "neth@gmail.com", password: "e1" }
+            };
+
+            // Validate credentials
+            if (credentials[role] && credentials[role].email === email && credentials[role].password === password) {
+                // Display success alert based on role
+                alert(`Login successful as ${role}`);
+
+                // Redirect based on role
+                switch (role) {
+                    case "Admin":
+                        window.location.href = "dashbord.html"; // Redirect to Admin page
+                        break;
+                    case "Manager":
+                        window.location.href = "manager.html"; // Redirect to Manager page
+                        break;
+                    case "Employee":
+                        window.location.href = "newemp.html"; // Redirect to Employee page
+                        break;
+                }
+            } else {
+                alert("Invalid credentials. Please try again.");
+            }
+        }
+
+        // Handle signup submission
+        function handleSignup(event) {
+            event.preventDefault();
+            alert("Signup successful!"); // Add your signup handling logic here
+            showLogin(); // Switch back to login after successful signup
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="login-signup">
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <h2 class="tittle">Login</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="login-email" placeholder="Email">
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-password" placeholder="Password">
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-user-tag"></i>
+
+                    <select class="role-select" id="login-role" name="role">
+                        <option value="" disabled selected>Select Role</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Employee">Employee</option>
+                    </select>
+                </div>
+
+                <input type="submit" value="Login" class="btn">
+                <p class="social-text">Login to begin your secure session</p>
+                <div class="social-media">
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <p class="account-text">Don't have an account? <a href="#" id="sign-up-btn2">Sign up</a></p>
+            </form>
+
+            <form class="sing-up-form" onsubmit="handleSignup(event)">
+                <h2 class="tittle">Sign up</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Username">
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input type="text" placeholder="Email">
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password">
+                </div>
+                <input type="submit" value="Sign up" class="btn">
+                <p class="social-text">Sign in to explore available features</p>
+                <p class="account-text">Already have an account? <a href="#" id="login-btn2">Login</a></p>
+            </form>
+        </div>
+
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>Access HR Management System</h3>
+                    <p>Log in to the HRM platform efficiently and securely, enabling authorized users to manage and optimize human resources operations.</p>
+                    <button class="btn" id="login-btn">Login</button>
+                </div>
+                <img src="wall.png" alt="" class="image">
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>Register for HR Management</h3>
+                    <p>Join the HRM system securely with a quick registration process, ensuring seamless access to workforce management tools and resources.</p>
+                    <button class="btn" id="sign-up-btn">Sign up</button>
+                </div>
+                <img src="wall2.png" alt="" class="image">
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
+

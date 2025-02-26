@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HRM System - Home</title>
+  <style>
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+    /* Header Styles */
+
+    .header {
+      background-color: #333;
+      padding: 20px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+
+
+    }
+    
+
+    .header img {
+      height: 50px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-list {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-list li {
+      text-align: center;
+    }
+
+    .nav-list a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 10px;
+    }
+
+    .nav-list a:hover {
+      background-color: #575757;
+    }
+     /* Footer Section */
+     .footer {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      border-bottom: 2px solid white;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .footer-section ul {
+      padding: 0;
+    }
+
+    .footer-section li {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .footer-section a {
+      color: white;
+      text-decoration: none;
+    }
+
+   
+
+    @media screen and (max-width: 1024px) {
+      .menu-toggle {
+        display: block; /* Show menu toggle for smaller screens */
+      }
+
+      .nav-list{
+        margin-left: -12%;
+        gap:0px;
+        font-size: 0.8em;
+    
+      }
+      
+
+      .sidebar {
+        transform: translateX(-100%); /* Hide sidebar for mobile view */
+        font-size: 1.1em;
+      }
+      .card{
+        width: 85%;
+      }
+
+      .sidebar.active {
+        transform: translateX(0); /* Show sidebar when active */
+      }
+
+      main {
+        margin-left: 0; /* Remove margin for hidden sidebar */
+      }
+
+      /* Show the close button on mobile */
+      .close-btn {
+        display: block;
+      }
+    }
+
+    /* Hide the close button in desktop view */
+    @media screen and (min-width: 1025px) {
+      .close-btn {
+        display: none;
+      }
+      body{
+        font-size: 1.1em;
+      }
+    }
+</style>
+</head>
+<body>
+  <header class="header">
+    <div>
+      <img src="logo2.png" alt="logo">
+    </div>
+    <div class="header-right">
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-list">
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="Contact.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </header>
+
+
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Company Name</h3>
+        <p>Your trusted partner in providing quality services and solutions for all your needs.</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Quick Access</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Get in Touch</h3>
+        <ul><li>
+            
+            Email: companyname@gmail.com</li>
+        
+          
+          <li>Phone: +94 78 345 2345</li>
+          <li>Follow Us:
+            <a href="#">
+              <img src="facebook.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+             
+          </a>
+          <a href="#">
+            <img src="twitter.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">   
+        </a>
+        <a href="#">
+          <img src="linkedin.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+         
+      </a>
+      <a href="#">
+        <img src="instagram.png" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 10px;">
+       
+    </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

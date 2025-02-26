@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background-color: #333;
+            padding: 10px 20px;
+            color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-bar .profile1 {
+            display: flex;
+            align-items: center;
+        }
+        .nav-bar .profile1 img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .nav-bar .profile1 span {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #2478b8;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 10.5%;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px;
+            transform: translateX(0);
+            transition: transform 0.3s ease-in-out;
+            opacity: 96%;
+            border-radius: 25px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar a img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .sidebar a:hover {
+            background-color: #0056b3;
+        }
+        .sidebar .ab a:hover {
+            background-color: #e41a2e;
+        }
+        .profile1 {
+            display: flex;
+            align-items: center;
+        }
+        .profile1 img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: 1100px;         
+        }
+
+        /* Content Area */
+        .content1 {
+            margin-left: 270px;
+            padding: 20px;
+        }
+
+        /* Table Styling */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        .reports-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #efe6e6;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .reports-table th, .reports-table td {
+            border: 1.5px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .reports-table tr:hover{
+            background-color: #c5d3de;
+
+        }
+        .reports-table th {
+            background-color: #395e7d;
+            color: white;
+        }
+        .reports-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .reports-header h1 {
+            margin: 0;
+        }
+        .reports-header button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #395e7d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .reports-header button:hover {
+            background-color: #3a73b0;
+        }
+        .but button{
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #fff;
+            border: none;
+            background-color: #395e7d;
+            cursor: pointer;
+        }
+        .but button:hover{
+            background-color: #3a73b0;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .menu-toggle {
+            display: none;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .sidebar {
+                width: 250px;
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .content1 {
+                margin-left: 0;
+            }
+            .reports-table th, .reports-table td {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .reports-table td button{
+                font-size: 12px;
+
+            }
+           
+            .reports-header h1 {
+                font-size: 1.4rem;
+                margin-bottom: 10px;
+            }
+            .reports-header button {
+                font-size: 0.9rem;
+            }
+            
+            .profile1 {
+            display: flex;
+            align-items: center;
+        }
+        .profile1 img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: 220px;         
+        }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle">☰</button>
+    <div class="nav-bar">
+        <div class="profile1">
+            <img src="profile1.png" alt="Admin Profile">
+            <span>Hi Sura!</span>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <a href="dashbord.html">
+            <img src="dash.png" alt="Dashboard">
+            Dashboard
+        </a>
+        <a href="manageemp.html">
+            <img src="manage.png" alt="Manage Employees">
+            Manage Employees
+        </a>
+        <a href="viewreport.html">
+            <img src="report.png" alt="View Reports">
+            View Reports
+        </a>
+        <a href="profile.html">
+            <img src="pro.png" alt="Profile">
+            Profile
+        </a>
+        
+        <div class="ab">
+            <a href="#">
+                <img src="logout.png" alt="Logout">
+                Logout
+            </a>
+        </div>
+    </div><br><br><br>
+
+    <div class="content1">
+        <div class="reports-header">
+            <h1>Reports</h1>
+            <button>Generate New Report</button>
+        </div>
+        <div class="table-container">
+            <table class="reports-table">
+                <thead>
+                    <tr>
+                        <th>Report ID</th>
+                        <th>Report Name</th>
+                        <th>Date Generated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>Employee Performance</td>
+                        <td>2024-12-01</td>
+                        <td>
+                            <div class="but">
+                                <button>View</button> <button>Edit</button></td></div>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Monthly Attendance</td>
+                        <td>2024-12-15</td>
+                        <td>
+                            <div class="but"><button>View</button> <button>Edit</button></td></div>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Annual Payroll</td>
+                        <td>2024-12-20</td>
+                        <td>
+                            <div class="but"><button>View</button> <button>Edit</button></td></div>
+                    </tr>
+                </tbody>
+            </table>
+        </div><br>
+        
+        <a href="report.html">
+        <button>Go to Manager</button></a>
+    </div>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Sidebar with Cards</title>
+  <style>
+    /* General Reset */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+
+    /* Header Styles */
+    .header {
+      background-color: #333;
+      padding: 20px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+
+
+    }
+    
+
+    .header img {
+      height: 50px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-list {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-list li {
+      text-align: center;
+    }
+
+    .nav-list a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 10px;
+    }
+
+    .nav-list a:hover {
+      background-color: #575757;
+    }
+    .header1{
+      background-color: #2478b8;
+      color: white;
+      padding: 10px 20px;
+      display:block;
+      text-align: center;
+      justify-content: space-between;
+      
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: none; /* Hidden by default */
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 210px;
+      background: #2478b8;
+      color: white;
+      height: 80vh;
+      position: fixed;
+      top: 10;
+      left: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 5px;
+      border-radius: 25px;
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%); /* Hide sidebar for mobile view */
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 0;
+      border-bottom: 1px solid #ffffff33;
+    }
+
+    .sidebar a:hover {
+      background-color: #1a5f91;
+    }
+
+    .close-btn {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .profileContent{
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      width: 50%;
+      padding-left: 15%;
+      padding-bottom: 20px;
+      text-align: center;
+    }
+
+    .profile-section, .details-section {
+      flex: 1;
+      display: block;
+      min-width: 250px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+    .profile-picture {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .profile-picture img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid #007BFF;
+    }
+    .profile-form label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .profile-form input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .details-section p {
+      margin: 10px 0;
+    }
+    .details-section img {
+      
+      align-items: center;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    /* Overlay Styles */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none; /* Hidden by default */
+    }
+
+    .overlay.active {
+      display: block; /* Show overlay when active */
+    }
+
+    /* Main Content Styles */
+    main {
+      margin-left: 250px; /* Default sidebar width */
+      padding: 20px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    @media screen and (max-width: 1024px) {
+      .menu-toggle {
+        display: block; /* Show menu toggle for smaller screens */
+      }
+      .nav-list{
+        margin-left: -2%;
+        gap:0px;
+        font-size: 0.9em;
+    
+      }
+      
+      
+      .sidebar {
+        transform: translateX(-100%); /* Hide sidebar for mobile view */
+        font-size: 1.1em;
+      }
+      .card{
+        width: 85%;
+      }
+
+      .sidebar.active {
+        transform: translateX(0); /* Show sidebar when active */
+      }
+
+      main {
+        margin-left: 0; /* Remove margin for hidden sidebar */
+      }
+
+      /* Show the close button on mobile */
+      .close-btn {
+        display: block;
+      }
+    }
+
+    /* Hide the close button in desktop view */
+    @media screen and (min-width: 1025px) {
+      .close-btn {
+        display: none;
+      }
+      body{
+        font-size: 1.1em;
+      }
+    }
+
+    
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div>
+      <img src="icon111.png" alt="logo">
+    </div>
+      <ul class="nav-list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="ContactUs.html">Contact Us</a></li>
+        <li><a href="index.html">Login</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="header1">
+    <button class="menu-toggle">☰</button>
+    <h1>Employee Profile</h1>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="sidebar">
+    <button class="close-btn">&times;</button>
+    <a href="newemp.html">Dashboard</a>
+    <a href="newempProfile.html">Profile</a>
+    <a href="NewAttendance.html">Attendance</a>
+    <a href="NewPayroll.html">Payroll</a>
+    <a href="logout.html">Logout</a>
+  </div>
+
+  <main class="profileContent">
+    <center>
+    <div class="details-section">
+        <h2>Hii neth</h2>
+        <img id="display-img" src="p1.png" alt="Additional Profile Picture">
+        <p id="display-name">Name: Neth wijayasingha</p>
+        <p id="display-email">Email: neth@gmail.com</p>
+        <p id="display-position">Position: Software Engineer</p>
+        <a href="Editprofile.html"><button>Edit profile</button></a>
+      </div>
+    </center>     
+  </main>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.overlay');
+    const closeBtn = document.querySelector('.close-btn');
+
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    const name = localStorage.getItem('profileName');
+    const email = localStorage.getItem('profileEmail');
+    const position = localStorage.getItem('profilePosition');
+    const image = localStorage.getItem('profileImage');
+
+    const displayName = document.getElementById('display-name');
+    const displayEmail = document.getElementById('display-email');
+    const displayPosition = document.getElementById('display-position');
+    const displayImg = document.getElementById('display-img');
+
+    if (name) displayName.textContent = `Name: ${name}`;
+    if (email) displayEmail.textContent = `Email: ${email}`;
+    if (position) displayPosition.textContent = `Position: ${position}`;
+    if (image) {
+      displayImg.src = image;
+      displayImg.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

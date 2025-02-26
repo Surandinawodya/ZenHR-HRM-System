@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Sidebar with Cards</title>
+  <style>
+    /* General Reset */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+
+    #searchInput {
+            margin-bottom: 20px;
+            margin-left: 75%;
+            padding: 10px;
+            width: 45%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-bar {
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    .search-bar1 {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      margin: 20px auto;
+      
+    }
+    .search-bar input {
+      padding: 10px;
+      width: 40%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      border-color: #2478b8;
+    }
+
+    /* Header Styles */
+    .header {
+      background-color: #333;
+      padding: 20px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+
+
+    }
+    
+
+    .header img {
+      height: 50px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-list {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-list li {
+      text-align: center;
+    }
+
+    .nav-list a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 10px;
+    }
+
+    .nav-list a:hover {
+      background-color: #575757;
+    }
+    .header1{
+      background-color: #2478b8;
+      color: white;
+      padding: 10px 20px;
+      display:block;
+      text-align: center;
+      justify-content: space-between;
+      
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: none; /* Hidden by default */
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 210px;
+      background: #2478b8;
+      color: white;
+      height: 80vh;
+      position: fixed;
+      top: 10;
+      left: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 5px;
+      border-radius: 25px;
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%); /* Hide sidebar for mobile view */
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 0;
+      border-bottom: 1px solid #ffffff33;
+    }
+
+    .sidebar a:hover {
+      background-color: #1a5f91;
+    }
+
+    .close-btn {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    /* Table Styling */
+table {
+    width: 80%;
+    border-collapse: collapse;
+    
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #7ebbec;
+    font-weight: bold;
+}
+table tr {
+            transition: transform 0.3s, background-color 0.3s ease-in-out;
+        }
+        table tr:hover {
+            transform: scale(1.02);
+            background-color: #f2f2f2;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        table tr {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+
+.chart {
+  margin: 20px 0;
+ 
+  background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s;
+  position: relative;
+  height: 300px;
+  width: 300px;
+  margin: 30px auto;
+}
+.chart:hover {
+      transform: translateY(-7px);
+    }
+
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+    /* Overlay Styles */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none; /* Hidden by default */
+    }
+
+    .overlay.active {
+      display: block; /* Show overlay when active */
+    }
+
+    
+
+    /* Main Content Styles */
+    main {
+      margin-left: 250px; /* Default sidebar width */
+      padding: 20px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    @media screen and (max-width: 1024px) {
+
+      .menu-toggle {
+        display: block; /* Show menu toggle for smaller screens */
+      }
+      table{
+        width: 163%;
+        margin-left: -25px;
+      }
+      .Acontent{
+        font-size: 1.2em;
+      }
+
+      .search-bar p{
+        display: none;
+      }
+
+      .search-bar1 p{
+        display: none;
+      }
+      
+      #searchInput{
+        margin-left: 40%;
+        width:100%
+      }
+      .nav-list{
+        margin-left: -2%;
+        gap:0px;
+        font-size: 0.9em;
+    
+      }
+      
+      .chart{
+        margin-left: -15px;
+      }
+      .sidebar {
+        transform: translateX(-100%); /* Hide sidebar for mobile view */
+        font-size: 1.1em;
+      }
+      .card{
+        width: 85%;
+      }
+
+      .sidebar.active {
+        transform: translateX(0); /* Show sidebar when active */
+      }
+
+      main {
+        margin-left: 0; /* Remove margin for hidden sidebar */
+      }
+
+      /* Show the close button on mobile */
+      .close-btn {
+        display: block;
+      }
+    }
+
+    /* Hide the close button in desktop view */
+    @media screen and (min-width: 1025px) {
+      .close-btn {
+        display: none;
+      }
+
+      body{
+        font-size: 1.1em;
+      } 
+    }
+
+    .Acontent{
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      width: 50%;
+      padding-left: 15%;
+      padding-bottom: 20px;
+      
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div>
+      <img src="icon111.png" alt="logo">
+    </div>
+      <ul class="nav-list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="ContactUs.html">Contact Us</a></li>
+        <li><a href="index.html">Login</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="header1">
+    <button class="menu-toggle">☰</button>
+    <h1>Employee Attendance</h1>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="sidebar">
+    <button class="close-btn">&times;</button>
+    <a href="newemp.html">Dashboard</a>
+    <a href="newempProfile.html">Profile</a>
+    <a href="NewAttendance.html">Attendance</a>
+    <a href="NewPayroll.html">Payroll</a>
+    <a href="logout.html">Logout</a>
+  </div>
+  
+  <main class="Acontent">
+
+    <div class="search-bar">
+      <p>Use the search bar below to quickly find attendance records by date or status:</p>
+      <input type="text" id="searchInput" placeholder="Search by date or status...">
+    </div>
+    
+            <center>
+            <table>
+              <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Hours Worked</th>
+                    </tr></thead>
+
+                    <tbody id="attendanceTable">
+                
+                
+                    <tr>
+                        <td>2024-12-01</td>
+                        <td>Present</td>
+                        <td>8 Hours</td>
+                    </tr>
+                    <tr>
+                        <td>2024-12-02</td>
+                        <td>Absent</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2024-12-03</td>
+                        <td>Present</td>
+                        <td>5 Hours</td>
+                    </tr>
+                    <tr>
+                        <td>2024-12-04</td>
+                        <td>Present</td>
+                        <td>8 Hours</td>
+                    </tr>
+                    <tr>
+                        <td>2024-12-05</td>
+                        <td>Present</td>
+                        <td>8 Hours</td>
+                    </tr>
+                    <tr>
+                        <td>2024-12-06</td>
+                        <td>Present</td>
+                        <td>7 Hours</td>
+                    </tr></tbody>
+              
+            </table></center>
+            <div class="search-bar1">
+            <p>The chart below provides a visual summary of employee attendance trends over the selected period.</p>
+          </div>
+            <div class="chart">
+              
+                <canvas id="yourAttendanceChart"></canvas>
+              </div>
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.overlay');
+    const closeBtn = document.querySelector('.close-btn');
+
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+
+
+    const searchInput = document.getElementById("searchInput");
+        const table = document.getElementById("attendanceTable");
+
+        searchInput.addEventListener("input", function() {
+            const filter = searchInput.value.toLowerCase();
+            const rows = table.getElementsByTagName("tr");
+
+            for (let i = 0; i < rows.length; i++) {
+                const dateCell = rows[i].getElementsByTagName("td")[0];
+                const statusCell = rows[i].getElementsByTagName("td")[1];
+                if (dateCell && statusCell) {
+                    const dateText = dateCell.textContent || dateCell.innerText;
+                    const statusText = statusCell.textContent || statusCell.innerText;
+
+                    if (
+                        dateText.toLowerCase().indexOf(filter) > -1 ||
+                        statusText.toLowerCase().indexOf(filter) > -1
+                    ) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        });
+
+  const ctx = document.getElementById('yourAttendanceChart').getContext('2d');
+    const yourAttendanceChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Present', 'Absent'],
+        datasets: [{
+          label: 'Attendance Summary',
+          data: [5, 1], // Data from the table
+          backgroundColor: ['#4CAF50', '#FF5733'], // Colors for Present and Absent
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+        },
+      },
+    });
+</script>
+
+</body>
+</html>
